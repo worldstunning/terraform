@@ -25,7 +25,7 @@ data "azurerm_subscription" "current" {}
 
 locals {
   location       = "centralindia"
-  resource_group = "rg-01"
+  resource_group = "rg-1"
 
   tags = {
     "Business Unit" = "IT"
@@ -83,14 +83,16 @@ resource "azurerm_policy_definition" "allowed_locations" {
 resource "azurerm_subscription_policy_assignment" "mandatory_tags" {
   name                 = "mandatory-tags"
   policy_definition_id = azurerm_policy_definition.mandatory_tags.id
-  subscription_id      = data.azurerm_subscription.current.subscription_id
+  subscription_id      = data.azurerm_subscription.current.id
 }
 
 resource "azurerm_subscription_policy_assignment" "allowed_locations" {
   name                 = "allowed-locations"
   policy_definition_id = azurerm_policy_definition.allowed_locations.id
-  subscription_id      = data.azurerm_subscription.current.subscription_id
+  subscription_id      = data.azurerm_subscription.current.id
 }
+
+
 
 #####################################
 # ACR (PRIVATE NETWORK ACCESS DISABLED)
