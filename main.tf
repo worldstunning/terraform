@@ -80,16 +80,16 @@ resource "azurerm_policy_definition" "allowed_locations" {
   })
 }
 
-resource "azurerm_policy_assignment" "mandatory_tags" {
+resource "azurerm_subscription_policy_assignment" "mandatory_tags" {
   name                 = "mandatory-tags"
   policy_definition_id = azurerm_policy_definition.mandatory_tags.id
-  scope                = data.azurerm_subscription.current.id
+  subscription_id      = data.azurerm_subscription.current.subscription_id
 }
 
-resource "azurerm_policy_assignment" "allowed_locations" {
+resource "azurerm_subscription_policy_assignment" "allowed_locations" {
   name                 = "allowed-locations"
   policy_definition_id = azurerm_policy_definition.allowed_locations.id
-  scope                = data.azurerm_subscription.current.id
+  subscription_id      = data.azurerm_subscription.current.subscription_id
 }
 
 #####################################
